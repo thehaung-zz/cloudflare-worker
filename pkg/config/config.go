@@ -33,3 +33,19 @@ func GetAPIUrl() string {
 func APIGetIPUrl() string {
 	return os.Getenv("API_GET_IP_URL")
 }
+
+func GetCloudFlareAPIUrl() string {
+	return os.Getenv("CLOUD_FLARE_BASE_URL")
+}
+
+func GetCloudFlareEmail() string {
+	return os.Getenv("CLOUD_FLARE_EMAIL")
+}
+
+func GetCloudFlareAPIToken() string {
+	return os.Getenv("CLOUD_FLARE_API_TOKEN")
+}
+
+func GetCloudFlareZoneID() string {
+	return os.Getenv("CLOUD_FLARE_ZONE_ID")
+}

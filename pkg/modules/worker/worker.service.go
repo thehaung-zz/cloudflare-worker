@@ -41,9 +41,24 @@ func (s Service) GetPreviousIP(ctx context.Context) (result string, err error) {
 	return result, nil
 }
 
-func (s Service) GetListDNSCloudFlare(ctx context.Context) {
-	//TODO implement me
-	panic("implement me")
+func (s Service) GetListDNSCloudFlare(ctx context.Context) (res io.ReadCloser, err error) {
+	ctx, cancel := context.WithTimeout(ctx, s.contextTimeout)
+	defer cancel()
+	url := fmt.Sprintf("%s/%s/%s", config.GetCloudFlareAPIUrl(), config.GetCloudFlareZoneID(), "dns_records?type=A")
+	log.Println(url)
+	request, err := http.NewRequest("GET", url, nil)
+
+	if err != nil {
+		return nil, err
+	}
+
+	request.Header.Set("X-Auth-Email", config.GetCloudFlareEmail())
+	request.Header.Set("X-Auth-Key", config.GetCloudFlareAPIToken())
+
+	client := &http.Client{}
+	resp, err := client.Do(request)
+
+	return resp.Body, nil
 }
 
 func (s Service) FetchDNS(ctx context.Context) (result bson.M, err error) {
@@ -53,8 +68,6 @@ func (s Service) FetchDNS(ctx context.Context) (result bson.M, err error) {
 	if err := s.db.Collection("infos").FindOne(ctx, bson.M{}).Decode(&result); err != nil {
 		return result, err
 	}
-
-	log.Println(result)
 
 	return result, nil
 }

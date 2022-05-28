@@ -9,7 +9,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"io"
-	"log"
 	"net/http"
 	"time"
 )
@@ -36,16 +35,13 @@ func (s Service) GetPreviousIP(ctx context.Context) (result string, err error) {
 		return "", err
 	}
 
-	result = fmt.Sprint(findResult["ipInfo"])
-
-	return result, nil
+	return fmt.Sprint(findResult["ipInfo"]), nil
 }
 
 func (s Service) GetListDNSCloudFlare(ctx context.Context) (res io.ReadCloser, err error) {
 	ctx, cancel := context.WithTimeout(ctx, s.contextTimeout)
 	defer cancel()
 	url := fmt.Sprintf("%s/%s/%s", config.GetCloudFlareAPIUrl(), config.GetCloudFlareZoneID(), "dns_records?type=A")
-	log.Println(url)
 	request, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {

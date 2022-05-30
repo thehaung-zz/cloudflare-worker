@@ -39,11 +39,10 @@ func TestConfig(t *testing.T) {
 
 	config := NewConfig()
 
-	mongoURI := fmt.Sprintf("mongodb://%s:%s@%s:%s",
+	mongoURI := fmt.Sprintf("mongodb+srv://%s:%s@%s",
 		"john",
 		"doe",
 		"localhost",
-		"27017",
 	)
 
 	if config.MongoURI() != mongoURI {

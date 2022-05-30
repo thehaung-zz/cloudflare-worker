@@ -11,4 +11,5 @@ type IService interface {
 	GetIPAddress(ctx context.Context) (res interface{}, err error)
 	GetPreviousIP(ctx context.Context) (result string, err error)
 	GetListDNSCloudFlare(ctx context.Context) (res io.ReadCloser, err error)
+	UpdateAllIPPublic(ctx context.Context, ip string) (res interface{}, err error)
 }

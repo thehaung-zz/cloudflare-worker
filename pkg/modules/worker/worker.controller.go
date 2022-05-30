@@ -71,3 +71,18 @@ func (c Controller) GetListDNSCloudFlare(w http.ResponseWriter, r *http.Request)
 		}
 	}
 }
+
+func (c Controller) UpdateAllIPPublic(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	httpUtil := utils.NewHttpUtil(w, r)
+
+	queryParamsString := httpUtil.QueryParamsString("ip")
+
+	if result, err := c.service.UpdateAllIPPublic(ctx, queryParamsString["ip"]); err != nil {
+		httpUtil.WriteError(http.StatusInternalServerError, err.Error())
+		return
+	} else {
+		httpUtil.WriteJson(http.StatusAccepted, result)
+		return
+	}
+}

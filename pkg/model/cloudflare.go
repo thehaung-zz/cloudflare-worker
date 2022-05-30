@@ -1,23 +1,19 @@
 package model
 
 type CloudFlare struct {
-	Type string `json:"type" bson:"type"`
+	Ip string `json:"ip"`
 
-	Name string `json:"name" bson:"name"`
+	ZoneId string `json:"zone_id"`
 
-	Content string `json:"content" bson:"content"`
+	Id string `json:"id"`
 
-	TTL int8 `json:"ttl" bson:"ttl"`
+	Type string `json:"type"`
 
-	Proxied bool `json:"proxied" bson:"proxied"`
-}
+	Name string `json:"name"`
 
-func NewCloudFlare(typeCloudFlare, name, content string, ttl int8, proxied bool) *CloudFlare {
-	return &CloudFlare{
-		Type:    typeCloudFlare,
-		Name:    name,
-		Content: content,
-		TTL:     ttl,
-		Proxied: proxied,
-	}
+	Content string `json:"content"`
+
+	TTL int8 `json:"ttl"`
+
+	Proxied bool `json:"proxied"`
 }
